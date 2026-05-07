@@ -61,6 +61,12 @@ export function SocketProvider({ children }) {
       setIsConnected(false);
     });
 
+    // If already connected when this effect runs, set state immediately
+    if (socket.connected) {
+      console.log('[SOCKET] Already connected');
+      setIsConnected(true);
+    }
+
     if (!listenersAttached) {
       console.log('[SOCKET] Attaching event listeners');
 
@@ -111,6 +117,18 @@ export function SocketProvider({ children }) {
     setError(null);
     setRoomLoading(true);
     socketRef.current?.emit('create-room', { roomId, roomName, username });
+
+    // Safety timeout — reset loading if server doesn't respond
+    setTimeout(() => {
+      setRoomLoading((loading) => {
+        if (loading) {
+          console.log('[SOCKET] create-room timeout — no response received');
+          setError('Server did not respond. Please try again.');
+          return false;
+        }
+        return loading;
+      });
+    }, 10000);
   };
 
   const joinRoom = (roomId, username) => {
@@ -118,6 +136,18 @@ export function SocketProvider({ children }) {
     setError(null);
     setRoomLoading(true);
     socketRef.current?.emit('join-room', { roomId, username });
+
+    // Safety timeout — reset loading if server doesn't respond
+    setTimeout(() => {
+      setRoomLoading((loading) => {
+        if (loading) {
+          console.log('[SOCKET] join-room timeout — no response received');
+          setError('Server did not respond. Please try again.');
+          return false;
+        }
+        return loading;
+      });
+    }, 10000);
   };
 
   const value = {

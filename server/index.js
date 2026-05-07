@@ -55,13 +55,14 @@ io.on('connection', (socket) => {
     // ============================================================
     // CREATE ROOM
     // ============================================================
-    socket.on('create-room', ({ roomId, roomName, username }) => {
+    socket.on('create-room', ({ roomId, roomName, username }, callback) => {
         console.log('[SERVER] ========== CREATE ROOM ==========');
         console.log('[SERVER] socket.id:', socket.id);
         console.log('[SERVER] roomId:', roomId, 'username:', username);
 
         if (!roomId || !username) {
             socket.emit('room-error', 'Room ID and username required');
+            if (callback) callback({ success: false, error: 'Room ID and username required' });
             return;
         }
 
@@ -90,6 +91,7 @@ io.on('connection', (socket) => {
         if (!room) {
             console.log('[SERVER] ERROR: Room still not in map after create!');
             socket.emit('room-error', 'Failed to create room');
+            if (callback) callback({ success: false, error: 'Failed to create room' });
             return;
         }
 
@@ -109,6 +111,9 @@ io.on('connection', (socket) => {
         // Join socket.io room
         socket.join(normalizedRoomId);
         console.log('[SERVER] User', socket.id, 'joined room:', normalizedRoomId);
+
+        // Acknowledge callback
+        if (callback) callback({ success: true, roomId: normalizedRoomId });
 
         // Send response
         socket.emit('room-created', {
