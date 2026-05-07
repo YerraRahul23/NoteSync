@@ -155,21 +155,8 @@ Update the Socket.IO server URL in `client/src/context/SocketContext.jsx` to poi
 ## Screenshots
 
 *(Add screenshots here)*
+![Home Page](./output-Screenshots/one.png)
+![Home Page](./output-Screenshots/two.png)
+![Home Page](./output-Screenshots/three.png)
 
-output-Screenshots/Screenshot 2026-05-08 at 12.31.59 AM.png
 
-output-Screenshots/Screenshot 2026-05-08 at 12.32.09 AM.png
-
-output-Screenshots/Screenshot 2026-05-08 at 12.32.45 AM.png
-
----
-
-## Author
-
-Built by [Your Name](https://github.com/your-username)
-
----
-
-## License
-
-MIT
