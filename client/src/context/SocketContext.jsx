@@ -17,6 +17,8 @@ function getSocket() {
       reconnectionDelay: 1000,
       timeout: 20000,
       forceNew: true,
+      transports: ["websocket", "polling"],
+      withCredentials: true,
     });
 
     socketInstance.on('connect', () => {

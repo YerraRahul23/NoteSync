@@ -4,15 +4,38 @@ import { Server } from 'socket.io';
 import cors from 'cors';
 
 const app = express();
-app.use(cors());
+
+// ============================================================
+// CORS Configuration — allows localhost dev + production domains
+// ============================================================
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'http://127.0.0.1:5173',
+    'http://127.0.0.1:3000',
+];
+
+const corsOptions = {
+    origin: (origin, callback) => {
+        // Allow requests with no origin (server-to-server, curl, etc.)
+        if (!origin) return callback(null, true);
+        // Allow if in allowed list or a Vercel deployment
+        if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+            return callback(null, true);
+        }
+        // Allow any custom domain (production)
+        callback(null, true);
+    },
+    credentials: true,
+    methods: ["GET", "POST"]
+};
+
+app.use(cors(corsOptions));
 
 const httpServer = createServer(app);
 
 const io = new Server(httpServer, {
-    cors: {
-        origin: ["http://localhost:5173", "http://localhost:3000"],
-        methods: ["GET", "POST"]
-    }
+    cors: corsOptions
 });
 
 // ============================================================
