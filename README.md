@@ -19,12 +19,12 @@ NoteSync allows multiple users to collaborate in real-time within shared rooms. 
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| **Frontend** | React 18, Vite, Tailwind CSS, Socket.IO Client |
-| **Backend** | Node.js, Express, Socket.IO |
-| **Realtime** | WebSockets via Socket.IO |
-| **Deployment** | Vercel (frontend), Render (backend) |
+| Layer                | Technology                                     |
+| -------------------- | ---------------------------------------------- |
+| **Frontend**   | React 18, Vite, Tailwind CSS, Socket.IO Client |
+| **Backend**    | Node.js, Express, Socket.IO                    |
+| **Realtime**   | WebSockets via Socket.IO                       |
+| **Deployment** | Vercel (frontend), Render (backend)            |
 
 ---
 
@@ -107,8 +107,8 @@ No environment variables are required for local development. The client proxies 
 
 For production, the backend expects:
 
-| Variable | Default | Description |
-|---|---|---|
+| Variable | Default  | Description |
+| -------- | -------- | ----------- |
 | `PORT` | `3001` | Server port |
 
 The frontend connects to the server URL defined in `client/src/context/SocketContext.jsx`. Update this for production deployment.
@@ -155,6 +155,12 @@ Update the Socket.IO server URL in `client/src/context/SocketContext.jsx` to poi
 ## Screenshots
 
 *(Add screenshots here)*
+
+output-Screenshots/Screenshot 2026-05-08 at 12.31.59 AM.png
+
+output-Screenshots/Screenshot 2026-05-08 at 12.32.09 AM.png
+
+output-Screenshots/Screenshot 2026-05-08 at 12.32.45 AM.png
 
 ---
 
